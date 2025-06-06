@@ -1,6 +1,6 @@
-# 🕷️ E-commerce Scraper (Pure Scrapy)  
+# 🕷️ E-commerce Scraper (Pure Scrapy)
 
-A minimalistic, production-ready Scrapy spider for e-commerce product data extraction.  
+A minimalistic, production-ready Scrapy spider for e-commerce product data extraction.
 
 <!-- Badge Definitions -->
 [scrapy-badge]: https://img.shields.io/badge/Scrapy-2.11+-brightgreen
@@ -20,12 +20,12 @@ A minimalistic, production-ready Scrapy spider for e-commerce product data extra
 ![Coverage][coverage-badge]
 [![CI][ci-badge]][ci-link]
 
-## Features  
-- **Pure Scrapy** (no external dependencies beyond `scrapy`)  
-- Structured items (`ProductItem`)  
-- Modular spiders (per-website)  
-- Built-in retries/throttling  
+## Features
+- **Pure Scrapy** (no external dependencies beyond `scrapy`)
+- Structured items (`ProductItem`)
+- Modular spiders (per-website)
+- Built-in retries/throttling
 
-## Quick Start  
-```bash  
-scrapy crawl amazon -O products.json  
+## Quick Start
+```bash
+scrapy crawl amazon -O products.json
