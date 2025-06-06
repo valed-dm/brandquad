@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "bqaud"
+version = "0.1.0"
+description = "Scrapy spider for e-commerce product data extraction."
+authors = ["dmvaled <dmvaled@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">=3.12,<4.0"
+scrapy = "^2.11.0"
+poetry-core = ">=2.0.0,<3.0.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
