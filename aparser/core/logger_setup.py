@@ -7,7 +7,15 @@ import sys
 from typing import Any
 from typing import ClassVar
 from typing import Optional
+from typing import Union
 from typing import cast
+
+from scrapy import Item
+from scrapy import Spider
+from scrapy.http import Response
+from scrapy.logformatter import LogFormatter
+from scrapy.logformatter import LogFormatterResult
+from twisted.python.failure import Failure
 
 
 PALETTE = [
@@ -89,6 +97,22 @@ class CleanFormatter(logging.Formatter):
         return self.ANSI_REGEX.sub("", super().format(record))
 
 
+class SilentItemScrapedFormatter(LogFormatter):
+    """
+    A log formatter that completely suppresses the log message for scraped items,
+    while leaving all other Scrapy log messages (stats, errors, etc.) untouched.
+    """
+
+    def scraped(
+        self, item: Item, response: Union[Response, Failure, None], spider: Spider
+    ) -> LogFormatterResult:
+        """
+        This method is called for each scraped item.
+        By returning None, Scrapy not to generate a log record for it.
+        """
+        return None
+
+
 def configure_logging(
     log_level: str = LOG_LEVEL,
     log_dir: str = LOG_DIR,
@@ -133,5 +157,8 @@ def configure_logging(
     root_logger.setLevel(numeric_level)
     root_logger.addHandler(console_handler)
     root_logger.addHandler(file_handler)
+
+    logging.getLogger("urllib3").setLevel(logging.WARNING)
+    logging.getLogger("pydantic").setLevel(logging.WARNING)
 
     _logging_configured = True
