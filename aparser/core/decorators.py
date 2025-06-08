@@ -14,9 +14,39 @@ T = TypeVar("T")
 def log_execution(
     level: int = logging.INFO, track_time: bool = True, show_args: bool = False
 ) -> Callable[[Callable[..., T]], Callable[..., T]]:
+    """Decorator to log function execution with timing and error handling.
+
+    Args:
+        level: Logging level (e.g., logging.INFO)
+        track_time: If True, logs execution duration
+        show_args: If True, logs function arguments
+
+    Returns:
+        A decorator that wraps the target function
+
+    Example:
+        >>> @log_execution(level=logging.DEBUG, track_time=True)
+        >>> def fetch_data(url):
+        ...     pass
+    """
+
     def decorator(func: Callable[..., T]) -> Callable[..., T]:
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> T:
+            """Actual wrapper that instruments the function call.
+
+            Logs:
+            - Start/end of execution (with source location)
+            - Duration if track_time=True
+            - Arguments if show_args=True
+            - Full traceback on errors
+
+            Returns:
+                The original function's return value
+
+            Raises:
+                Original function's exceptions with added logging
+            """
             logger = logging.getLogger(func.__module__)
 
             filename = "unknown"
