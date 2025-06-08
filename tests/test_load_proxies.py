@@ -2,6 +2,9 @@ from unittest.mock import MagicMock
 from unittest.mock import patch
 
 import pytest
+from requests import RequestException
+from requests import Timeout
+from requests.exceptions import SSLError
 
 from aparser.core import load_proxies
 
@@ -42,9 +45,18 @@ def test_check_proxy_failure_due_to_status(mock_get):
     assert load_proxies.check_proxy("http://fakeproxy") is False
 
 
-@patch("aparser.core.load_proxies.requests.get", side_effect=Exception("timeout"))
+@patch("aparser.core.load_proxies.requests.get")
 def test_check_proxy_exception(mock_get):
+    mock_get.side_effect = RequestException("Simulated timeout")
     assert load_proxies.check_proxy("http://fakeproxy") is False
+
+
+@pytest.mark.parametrize(
+    "exception", [RequestException("Timeout"), ConnectionError(), Timeout(), SSLError()]
+)
+def test_check_proxy_various_exceptions(exception):
+    with patch("aparser.core.load_proxies.requests.get", side_effect=exception):
+        assert load_proxies.check_proxy("http://fakeproxy") is False
 
 
 @patch("aparser.core.load_proxies.fetch_proxy_list")
