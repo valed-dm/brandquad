@@ -1,16 +1,21 @@
 [tool.poetry]
-name = "bqaud"
+name = "aparser"
 version = "0.1.0"
 description = "Scrapy spider for e-commerce product data extraction."
 authors = ["dmvaled <dmvaled@gmail.com>"]
 readme = "README.md"
 license = "MIT"
 keywords = ["brandquad", "scrapy", "spider", "e-commerce", "data", "extraction", "parsing", "solution"]
+packages = [
+    { include = "aparser" },
+    { include = "aparser/spiders" }
+]
 
 [tool.poetry.dependencies]
 python = ">=3.12,<4.0"
-scrapy = "^2.11.0"
+scrapy = "^2.13.1"
 poetry-core = ">=2.0.0,<3.0.0"
+pydantic = "^2.11.5"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.11.12"
@@ -24,6 +29,7 @@ types-colorama = "^0.4.15.20240311"
 pytest = "^8.3.5"
 pytest-cov = "^4.1.0"
 pytest-mock = "^3.14.0"
+pytest-asyncio = "^1.0.0"
 
 [tool.poetry.scripts]
 run-test = "pytest"
