@@ -24,6 +24,7 @@ A minimalistic, production-ready Scrapy spider for e-commerce product data extra
 ## Features
 - **Pure Scrapy** (no external dependencies beyond `scrapy`)
 - Structured items (`ProductItem`)
+- ~50 secs for 4150 SKU in all 10 catalog categories
 
 ## Achievements
 
