@@ -8,6 +8,8 @@ from requests.exceptions import RequestException
 from requests.exceptions import SSLError
 from requests.exceptions import Timeout
 
+from aparser.core.decorators import log_execution
+
 
 def fetch_proxy_list(limit: int = 20) -> list[str]:
     """Fetch random HTTP proxies from ProxyScrape API.
@@ -52,6 +54,7 @@ def check_proxy(proxy: str) -> bool:
         raise ValueError(f"Invalid proxy URL {proxy}") from e
 
 
+@log_execution()
 def build_valid_proxy_pool() -> list[str]:
     """Build validated proxy pool using parallel checking.
 
