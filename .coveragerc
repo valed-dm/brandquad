@@ -1,0 +1,9 @@
+[run]
+omit =
+    aparser/core/decorators.py
+    aparser/core/logger_setup.py
+    aparser/settings.py
+    aparser/spiders/acspider.py
+    aparser/spiders/tspiders.py
+    **/migrations/*
+    tests/*
